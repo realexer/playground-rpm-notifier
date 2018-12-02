@@ -1,0 +1,16 @@
+{
+  "name": "rpm.notifier",
+  "version": "1.0.0",
+  "description": "Notifier part of the Reddit Posts Mirror playground project.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@avoid-js/avoid-js": "0.0.10",
+    "amqplib": "^0.5.2"
+  }
+}

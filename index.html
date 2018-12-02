@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Server Push</title>
+    <script type="text/javascript" src="modules/SSEClient.js"></script>
+</head>
+<body>
+    <h1>Listening...</h1>
+
+    <h1>Odd: <span class="" id="OddEventsCounter">0</span></h1>
+    <h1>Even: <span class="" id="EvenEventsCounter">0</span></h1>
+
+    <h1>Processed urls:
+        <span class="" id="PorcessedPostsList"></span>
+    </h1>
+
+    <button onclick="sseClient.connect();">Start</button>
+    <br/>
+    <button onclick="sseClient.disconnect();">Stop</button>
+
+    <script>
+        AvoidJS.cmd.init(AvoidJS.ui.DOM.getById(''));
+
+        function getEl(id) {
+            return document.getElementById(id);
+        }
+
+        const sseClient = new SSEClient({
+            url: 'http://localhost:9091'
+        });
+
+        sseClient.addEventListener('OddEvent', (e) =>
+        {
+            getEl('OddEventsCounter').innerHTML = (parseInt(getEl('OddEventsCounter').innerHTML)+1);
+        });
+
+        sseClient.addEventListener('EvenEvent', (e) =>
+        {
+            getEl('EvenEventsCounter').innerHTML = (parseInt(getEl('EvenEventsCounter').innerHTML)+1);
+        });
+
+        sseClient.addEventListener('PostProcessed', (e) =>
+        {
+            let msgData = JSON.parse(JSON.parse(e.data));
+
+            getEl('PorcessedPostsList').innerHTML += `${msgData.url}<br/>`;
+        });
+
+    </script>
+
+</body>
+</html>
